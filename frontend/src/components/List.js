@@ -3,25 +3,26 @@ import Task from "./Task";
 import "./list.css";
 import axios from "axios";
 import { BiSearchAlt } from "react-icons/bi";
-import { BsFilterLeft } from "react-icons/bs";
+// import { BsFilterLeft } from "react-icons/bs";
 
 const List = () => {
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
 
-  const [tagFilter, setTagfilter] = useState({ view: false, selectedTag: "", tags:[] });
+  // const [tagFilter, setTagfilter] = useState({
+  //   view: false,
+  //   selectedTag: "",
+  //   tags: [],
+  // });
 
-  const handleTagSelect = () => {
-
-  }
-
+  // const handleTagSelect = () => {};
 
   useEffect(() => {
     getTasks()
       .then((res) => {
         setTasks(res.data);
         setFilteredTasks(res.data);
-        setTagfilter({tags: new Set(filteredTasks.map(task => task.tag))})
+        // setTagfilter({ tags: new Set(filteredTasks.map((task) => task.tag)) });
       })
       .catch((err) => console.log(err));
   }, [tasks]);
@@ -55,13 +56,20 @@ const List = () => {
           placeholder="Search"
           onChange={(e) => searchTasks(e)}
         />
-        <BsFilterLeft onClick={() => console.log(tagFilter.tags)} color="white" size={45} />
-        {
-          tagFilter.view ?
+        {/* <BsFilterLeft
+          onClick={() => console.log(tagFilter.tags)}
+          color="white"
+          size={45}
+        />
+        {tagFilter.view ? (
           <select>
-            {tagFilter.tags.map(tag => <option>{tag}</option>)}
-          </select> : ''
-        }
+            {tagFilter.tags.map((tag) => (
+              <option>{tag}</option>
+            ))}
+          </select>
+        ) : (
+          ""
+        )} */}
       </div>
 
       <ul className="list-container">
