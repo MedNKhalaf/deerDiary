@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { AiFillFileAdd } from "react-icons/ai";
-import "./taskForm.css";
 
 const TaskForm = () => {
   const [modalView, setModalview] = useState(false);
@@ -11,7 +10,6 @@ const TaskForm = () => {
     title: "",
     content: "",
     tag: "",
-    image: null,
   });
 
   const handleTitleChange = (e) => {
@@ -23,15 +21,16 @@ const TaskForm = () => {
   const handleTagChange = (e) => {
     setFormData({ ...formData, tag: e.target.value });
   };
-  //   const handleImageChange = (e) => {
-  //     setFormData({...formData, image: e.target.value})
-  //   }
 
   const addTask = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000", formData)
-      .then((res) => console.log(res));
+      .post("http://localhost:5000/api/save", formData)
+      .then((_) => {
+        setModalview(false);
+        setFormData({...formData, tag:'', title:'', content:''})
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleClickOutside = (e) => {
@@ -62,14 +61,19 @@ const TaskForm = () => {
             <input value={formData.tag} id="tag" onChange={handleTagChange} />
             <label htmlFor="content">Content</label>
             <textarea
+              required={true}
               value={formData.content}
               id="content"
               onChange={handleContentChange}
-             ></textarea>
-            <button onClick={addTask} type="submit">Add Task</button>
+            ></textarea>
+            <button onClick={addTask} type="submit">
+              Add Task
+            </button>
           </form>
         </div>
-      ) : '' }
+      ) : (
+        ""
+      )}
     </div>
   );
 };

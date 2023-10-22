@@ -9,7 +9,7 @@ module.exports.saveTasks = (req, res) => {
   const { title, tag, content } = req.body; // Destructure title, tag, and content from req.body
 
   // Create a new task using the Task model
-  Task.create({ title, tag, content })
+  TaskModel.create({ title, tag, content })
     .then((data) => {
       console.log("Task Saved Successfully");
       res.status(201).send(data); // Send the saved task data as response
@@ -21,8 +21,8 @@ module.exports.saveTasks = (req, res) => {
 };
 module.exports.updateTasks = (req, res) => {
   const { id } = req.params;
-  const { task } = req.body;
-  TaskModel.findByIdAndUpdate(id, { task })
+  const { title, tag, content } = req.body;
+  TaskModel.findByIdAndUpdate(id, { title, tag, content })
     .then(() => res.send("Updated successfully"))
     .catch((err) => {
       console.log(err);

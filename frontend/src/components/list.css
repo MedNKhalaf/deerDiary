@@ -4,7 +4,17 @@
     justify-content: center;
     gap: 10px;
     margin-top: 2rem;
+    
 
+}
+
+
+
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
 
